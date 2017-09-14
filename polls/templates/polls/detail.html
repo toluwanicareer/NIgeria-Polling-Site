@@ -1,0 +1,274 @@
+{%load static %}
+<html>
+	<head>
+	        <meta charset="utf-8">
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	        <meta name="viewport" content="width=device-width, initial-scale=1">
+	        <title>Nigeria Polling Site</title>
+	        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	        <link href= "{% static 'poll.css' %}" rel="stylesheet">
+	          <link href= "{% static 'global.css' %}" rel="stylesheet">
+	        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Oswald" rel="stylesheet">
+
+
+			 <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"-->
+			
+	</head>
+	<body onload="initialize()">
+		<script>
+		  function statusChangeCallback(response) {
+		    console.log('statusChangeCallback');
+		    console.log(response);
+		   sessionStorage.facebook_done=true
+		  	console.log('facebook side')
+		    if (sessionStorage.facebook_done && sessionStorage.location_done){
+		  	$('.js-votebtn').css('display','inline')
+            }
+		    if (response.status === 'connected') {
+		      // Logged into your app and Facebook.
+		      testAPI();
+		    } else {
+		      // The person is not logged into your app or we are unable to tell.
+		     // document.getElementById('status').innerHTML = 'Please log ' +
+		       // 'into this app.';
+		    }
+		  }
+
+		  // This function is called when someone finishes with the Login
+		  // Button.  See the onlogin handler attached to it in the sample
+		  // code below.
+		  function checkLoginState() {
+		    FB.getLoginStatus(function(response) {
+		      statusChangeCallback(response);
+		    });
+		  }
+         
+
+		  window.fbAsyncInit = function() {
+		  FB.init({
+		    appId      : '783224745193786',
+		    cookie     : true,  // enable cookies to allow the server to access 
+		                        // the session
+		    xfbml      : true,  // parse social plugins on this page
+		    version    : 'v2.10' // use graph api version 2.8
+		  });
+
+		 
+
+		  FB.getLoginStatus(function(response) {
+		    statusChangeCallback(response);
+		  });
+
+		  };
+
+		  function fblogin(){
+		 	  FB.login(function(response) {
+			   statusChangeCallback(response);
+		  }, {scope: 'public_profile,email, user_friends'});
+
+		 }
+
+		  // Load the SDK asynchronously
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+
+		  // Here we run a very simple test of the Graph API after login is
+		  // successful.  See statusChangeCallback() for when this call is made.
+		  function testAPI() {
+		    console.log('Welcome!  Fetching your information.... ');
+			  FB.api('/me',{locale: 'en_US', fields: 'id,first_name,last_name,email,gender,picture,age_range'}, function(response) {
+		      console.log('Successful login for: ' + response.first_name)
+		       $.get("{%url 'poll_app:login' %}",response).done(function(data){
+		       	if (data.login){
+		       		if (data.friends){
+		       			FB.api('/me/friends/', function(response) {
+						  if (response && !response.error) {
+						      $.get("{%url 'poll_app:update_friend' %}", response.summary).done(function(data){
+								 sessionStorage.facebook_done=true
+								 
+						      })
+						     
+						   }
+
+						});
+
+		       		}
+
+		       		         $("#login").modal("hide");
+
+		       	}
+		       })
+		    });
+			
+
+			  if (sessionStorage.facebook_done && sessionStorage.location_done){
+			  	$('.js-votebtn').css('display','inline')
+			  }
+		  }
+</script>
+		<div class="jumbotron blueheader blueheader--nobackground">
+			<nav class="navbar navbar-default">
+			  <div class="container">
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span> 
+			      </button>
+			      <a class="navbar-brand" href="#">Atomic</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id="myNavbar">
+			      <ul class="nav navbar-nav navbar-right">
+			        <li class="active"><a href="#">Home</a></li>
+			        <li><a href="#">About</a></li>
+			        <li><a href="#">Contact</a></li> 
+			        <li><a href="#">Create Poll</a></li> 
+			      
+			        <li><a href="#"><span class="glyphicon glyphicon-user icons" ></span> Sign Up</a></li>
+			        <li><a href="#"><span class="glyphicon glyphicon-log-in icons"></span> Login</a></li>
+			      </ul>
+			    </div>
+			  </div>
+			</nav>
+		</div>
+		<div class="container ">
+			<div class="row">
+				
+				<div class="col-md-9 col-sm-8 ">
+						<img class=" detail-img img-responsive" width="100%" src="{{poll.thumbnail.url}}">
+					<div class="row">
+						<div class="col-md-7 col-sm-6">
+							<h2 class="detail-text"><strong>{{poll.question_text}}</strong></h2>
+							<form action="">
+						      {% for choice in poll.choice_set.all %}
+							  <input type="radio" name="choice" value="{{choice.choice_text}}" {% if forloop.first %}checked {%endif%}> <strong style="text-transform: capitalize;">{{choice.choice_text}}</strong><br>
+							  {% endfor %}
+							  <div  style="padding-left: 0px; padding-top: 20px;">
+								<button class=" btn btn-primary pollbtn pollbtn--dis js-votebtn" >Vote Now</button>
+							</div>
+							</form>
+							<div class="social-icons">
+								<h4><strong>SHARE</strong></h4>
+								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-twitter-square twitter fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
+
+							</div>
+						</div>
+
+						
+
+						<div class="col-md-5 col-sm-6">
+							<ul class="list-inline">
+								<li class="list-item"><h5 class="detail-text detail-text--result"><i class="icons fa fa-list"> </i> Result</h5></li>
+								<li class="list-item"><a href="#"><h5 class="detail-text detail-text--result"><i class="fa fa-expand icons"> </i> Expand</h5></a></li>
+							</ul>
+							<hr>
+							<img class="img-responsive " src="http://docs.oracle.com/javafx/2/charts/img/pie-legend.png">
+                            <hr>
+						</div>
+					</div>
+					<div class="comment ">
+						<div id="disqus_thread"></div>
+						<script>
+
+						/**
+						*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+						
+						var disqus_config = function () {
+						this.page.url ='http://localhost:8000/{{poll.slug}}';  // Replace PAGE_URL with your page's canonical URL variable
+						this.page.identifier = '{{poll.id}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+						};
+						
+						(function() { // DON'T EDIT BELOW THIS LINE
+						var d = document, s = d.createElement('script');
+						s.src = 'https://polling-1.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+						})();
+						
+						</script>
+						<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-4 second-column">
+					<div class="row">
+
+						<h4 class="text-center detail-text--result detail-text--popular">Popular Polls</h4>
+						<hr>
+						<div class="row">
+							<div class="col-xs-6">
+								<img class="img-responsive detail-popular-img"  src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
+							</div>
+							<div class="col-xs-6">
+								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
+								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
+								<button class="btn btn-primary">Vote Now</button>
+
+							</div>
+
+						</div>
+						<div class="row margin-tops">
+							<div class="col-xs-6">
+								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
+							</div>
+							<div class="col-xs-6">
+								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
+								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
+								<button class="btn btn-primary">Vote Now</button>
+
+							</div>
+							
+						</div>
+						<div class="row margin-tops">
+							<div class="col-xs-6">
+								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
+							</div>
+							<div class="col-xs-6">
+								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
+								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
+								<button class="btn btn-primary">Vote Now</button>
+
+							</div>
+							
+						</div>
+						<div class="row margin-tops">
+							<div class="col-xs-6">
+								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
+							</div>
+							<div class="col-xs-6">
+								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
+								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
+								<button class="btn btn-primary">Vote Now</button>
+
+							</div>
+							<input value="{{poll.id}}" id="poll_id" type="hidden"/>
+						</div>
+					</div>
+					</div>
+
+				</div>
+			</div>
+				{% include 'polls/includes/modal-login.html' %}
+		</div>
+	<!--script id="dsq-count-scr" src="//EXAMPLE.disqus.com/count.js" async></script-->
+	 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC8TvKHQ-rUklU5OsD6Oq73pMG1fJO9iR8" ></script>
+		<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
+
+	<script  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{%static 'js/poll.js' %}"></script> 
+
+	</body>
+
+</html>	

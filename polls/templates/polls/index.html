@@ -1,0 +1,89 @@
+{% load static %}
+<html>
+	<head>
+	        <meta charset="utf-8">
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	        <meta name="viewport" content="width=device-width, initial-scale=1">
+	        <title>Nigeria Polling Site</title>
+	        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	        <link href= "{% static 'poll.css ' %}" rel="stylesheet">
+	        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Oswald" rel="stylesheet">
+			 <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"-->
+			
+	</head>
+	<body>
+	<div class="jumbotron blueheader">
+		<nav class="navbar  navbar-default">
+		  <div class="container">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        <span class="icon-bar bars" ></span>
+		        <span class="icon-bar bars"></span>
+		        <span class="icon-bar bars"></span> 
+		      </button>
+		      <a class="navbar-brand" href="#">WebSiteName</a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class="active"><a href="#">Home</a></li>
+		        <li><a href="#">About</a></li>
+		        <li><a href="#">Contact</a></li> 
+		        <li><a href="#">Create Poll</a></li> 
+			    <li><a href="#">Services</a>  
+		        <li><a href="#"><span class="glyphicon glyphicon-user icons" ></span> Sign Up</a></li>
+		        <li><a href="#"><span class="glyphicon glyphicon-log-in icons"></span> Login</a></li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+		<div class="bluetext text-center">
+			<h2><strong>Your Opinions Count</strong></h2>
+			<span><strong>Literally</strong></span>
+		</div>
+	</div>
+	<div class="container page">
+		<div class="row">
+		<div class="page-header text-center">
+			<h3><font color="green" >Active Polls</font></h3>
+		</div>
+	        {% for poll in polls %}
+			<div class="col-md-4 col-sm-6">
+				<div class="pollcard">
+					<img class="img-responsive" src="{{ poll.thumbnail.url }}"/>
+					<div class="pol-text">
+						<h4>{{ poll.question_text }}</h4>
+						<div class="row">
+							
+							<div class="col-xs-12">
+								<a href="{% url 'poll_app:detail' poll.slug %}" class=" btn btn-primary pollbtn" >Vote Now</a>
+							</div>
+							<div class="social-icons">
+								<h4><strong>SHARE</strong></h4>
+								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-twitter-square twitter fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			
+		</div>
+	</div>
+
+	
+	
+
+	</body>
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
+
+	<script  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script-->
+
+</html>
