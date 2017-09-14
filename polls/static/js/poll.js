@@ -95,7 +95,8 @@ function showError(error) {
 $('.js-votebtn').click(function(){
 	console.log('yes')
 	 poll_id=$('#poll_id').val()
-	$.get( "/api/vote/", { id: poll_id, choice: "yes" , state:localStorage.state} , function(data, status){})
+
+	$.get( "/api/vote/", { id: poll_id, choice: $("input[name=choice]:checked").val() , state:localStorage.state} , function(data, status){})
 	  .done(function( data ) {
       if (data.login){
     	  if(data.done){
