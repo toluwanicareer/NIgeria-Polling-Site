@@ -16,6 +16,7 @@ class PollDetailView(DetailView):
 	 context_object_name='poll'
 	 template_name='polls/detail.html'
 
+
 	 def get_context_data(self, **kwargs):
 	 	context=super(PollDetailView,self).get_context_data(**kwargs)
 	 	context['popular_polls']=Question.objects.filter(status='Active')
