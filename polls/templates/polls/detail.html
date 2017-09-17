@@ -152,6 +152,9 @@
 							  <div  style="padding-left: 0px; padding-top: 20px;">
 								<button class=" btn btn-primary pollbtn pollbtn--dis js-votebtn" >Vote Now</button>
 							</div>
+							<p>
+								{{poll.description}}
+							</p>
 							</form>
 							<div class="social-icons">
 								<h4><strong>SHARE</strong></h4>
@@ -205,60 +208,27 @@
 
 						<h4 class="text-center detail-text--result detail-text--popular">Popular Polls</h4>
 						<hr>
-						<div class="row">
+						{% for poll in popular_polls %}
+						<div class="row {%if not forloop.first %}margin-tops{%endif%}">
 							<div class="col-xs-6">
-								<img class="img-responsive detail-popular-img"  src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
+								<img class="img-responsive detail-popular-img"  src="{{poll.thumbnail.url}}">
 							</div>
 							<div class="col-xs-6">
-								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
-								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
-								<button class="btn btn-primary">Vote Now</button>
+								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> {{poll.category}}</span>
+								<h5 class="detail-text--popular ">{{poll.question_text}}</h5>
+								<a href="{% url 'poll_app:detail' poll.slug %}"class="btn btn-primary">Vote Now</a>
 
 							</div>
 
 						</div>
-						<div class="row margin-tops">
-							<div class="col-xs-6">
-								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
-							</div>
-							<div class="col-xs-6">
-								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
-								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
-								<button class="btn btn-primary">Vote Now</button>
-
-							</div>
-							
-						</div>
-						<div class="row margin-tops">
-							<div class="col-xs-6">
-								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
-								
-							</div>
-							<div class="col-xs-6">
-								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
-								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
-								<button class="btn btn-primary">Vote Now</button>
-
-							</div>
-							
-						</div>
-						<div class="row margin-tops">
-							<div class="col-xs-6">
-								<img class="img-responsive detail-popular-img" height="100%" src="http://media.premiumtimesng.com/wp-content/files/2014/06/Buhari-and-Jonathan.jpg">
-							</div>
-							<div class="col-xs-6">
-								<span class="detail-text--popular detail-text--popular-tag"><i class="fa fa-tag"> </i> Politics</span>
-								<h5 class="detail-text--popular ">Buhari or Jonathan</h5>
-								<button class="btn btn-primary">Vote Now</button>
-
-							</div>
-							<input value="{{poll.id}}" id="poll_id" type="hidden"/>
-						</div>
+						{% endfor %}
+						
 					</div>
 					</div>
 
 				</div>
 			</div>
+			<input value="{{poll.id}}" id="poll_id" type="hidden"/>
 				{% include 'polls/includes/modal-login.html' %}
 		</div>
 	<!--script id="dsq-count-scr" src="//EXAMPLE.disqus.com/count.js" async></script-->

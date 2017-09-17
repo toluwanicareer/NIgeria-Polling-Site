@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^api/vote/$', views.VoteView.as_view(), name='vote'),
     url(r'^api/login/$', views.loginView.as_view(), name='login'),
-    url(r'^api/updatae_friend_count/$', views.updateFriendCount.as_view(), name='update_friend'),
+    url(r'^api/update_friend_count/$', views.updateFriendCount.as_view(), name='update_friend'),
     ]
 
 
