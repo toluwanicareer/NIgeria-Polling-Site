@@ -1,0 +1,58 @@
+<canvas width='100' height="100" id="js-summary-result"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+<script type="text/javascript">
+
+var options = {
+    responsive: true,
+    title: {
+        display: true,
+        position: "top",
+        text: "Summary Result",
+        fontSize: 18,
+        fontColor: "#111"
+    },
+    legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+            fontColor: "#333",
+            fontSize: 16
+        }
+    }
+};
+
+var data1 = {
+	   
+        labels: [  {% for choice in poll.choice_set.all %}"{{choice.choice_text}}",{% endfor %} ]
+        ,
+        datasets: [
+            {
+                label: "TeamA Score",
+                data: [{% for choice in poll.choice_set.all %}"{{choice.votes}}",{% endfor %}],
+                backgroundColor: [
+                {% for choice in poll.choice_set.all %}
+                    "{{choice.color}}",
+                    {% endfor %}
+                    
+                ],
+                borderColor: [
+                    "#CDA776",
+                    "#989898"
+                   
+                ],
+                borderWidth: [1, 1]
+            }
+        ]
+    };
+
+var ctx1 = document.getElementById('js-summary-result').getContext('2d')
+
+var chart1 = new Chart(ctx1, {
+        type: "doughnut",
+        data: data1,
+        options: options
+    });
+
+
+</script>

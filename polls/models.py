@@ -54,6 +54,13 @@ class Choice(models.Model):
 	choice_text=models.CharField(max_length=200)
 	votes=models.IntegerField(default=0)
 	location=models.ManyToManyField(State)
+	color=models.CharField(max_length=50, null=True, choices=(('#08aae6','Blue'),
+																('#00C851', 'Green'), 
+																('#ff3547','Red'),
+																('#880e4f','Purple') ,
+																('#F80', 'Orange'),
+							                                  )
+	                       )
 
 	
 	def vote(self,user, state):
