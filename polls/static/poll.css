@@ -46,8 +46,11 @@
 
 .pollcard img{
 	height:200px;
+	width:100%;
 }
-
+.pol-text h4{
+	font-size: 15px;
+}
 .social-icons{
 	padding-left: 10px;
 }
@@ -185,7 +188,13 @@ margin:50px 0px 10px 0px;
 	max-height: 500px;
 }
 
+.poll-content >p{
+    font-size: 19px;
+}
 
+body{
+	font-size:17px;
+}
 @media screen 
   and (min-width: 768px) 
   and (max-width: 992px){	

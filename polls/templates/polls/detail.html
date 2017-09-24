@@ -4,12 +4,16 @@
 	        <meta charset="utf-8">
 	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	        <meta name="viewport" content="width=device-width, initial-scale=1">
-	        <title>Nigeria Polling Site</title>
+	        <title>{{poll.question_text}} | Nigerian-Poll</title>
 	        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	        <link href= "{% static 'poll.css' %}" rel="stylesheet">
 	          <link href= "{% static 'global.css' %}" rel="stylesheet">
 	        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Oswald" rel="stylesheet">
+	        <meta property="og:title" content="{{poll.question_text}} | Nigerian-Poll" />
+			<meta property="og:type" content="{{poll.politics}}" />
+			<meta property="og:url" content="http://www.nijapoll.com/{{poll.slug}}" />
+			<meta property="og:image" content="{{poll.thumbnail.url}}" />
 
 
 			 <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"-->
@@ -121,17 +125,20 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span> 
 			      </button>
-			      <a class="navbar-brand" href="#">Atomic</a>
+			      <a class="navbar-brand" href="{% url 'poll_app:home'%}">Naija Poll</a>
 			    </div>
 			    <div class="collapse navbar-collapse" id="myNavbar">
 			      <ul class="nav navbar-nav navbar-right">
-			        <li class="active"><a href="#">Home</a></li>
+			        <li class="active"><a href="{% url 'poll_app:home'%}">Home</a></li>
 			        <li><a href="#">About</a></li>
 			        <li><a href="#">Contact</a></li> 
-			        <li><a href="#">Create Poll</a></li> 
-			      
-			        <li><a href="#"><span class="glyphicon glyphicon-user icons" ></span> Sign Up</a></li>
+			        <!--li><a href="#">Create Poll</a></li--> 
+			        {% if not user.is_authenticated %}
 			        <li><a href="#"><span class="glyphicon glyphicon-log-in icons"></span> Login</a></li>
+                    {% endif %}
+                     {% if user.is_authenticated %}
+			        <li><a href="JavaScript:void;"><span class="glyphicon glyphicon-log-in icons"></span> {{request.user.email}}</a></li>
+                    {% endif %}
 			      </ul>
 			    </div>
 			  </div>
@@ -152,11 +159,6 @@
 							  <div  style="padding-left: 0px; padding-top: 20px;">
 								<button class=" btn btn-primary pollbtn pollbtn--dis js-votebtn" >Vote Now</button>
 							</div>
-							<p>
-								{{poll.description}}
-							</p>
-
-							</form>
 							<div class="social-icons">
 								<h4><strong>SHARE</strong></h4>
 								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
@@ -164,6 +166,12 @@
 								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
 
 							</div>
+							<p class="margin-tops"><i>The real time summary of the result is  below the page on mobile screens ,A much more detailed result will be published after this poll, and will be distributed across social media and our partners in the Media industry. The final result will contain more informed data, using modern techniques the result will be factored into  votes across location, age , gender and  etc</i></p>
+							
+
+							</form>
+							<a href=""><img class="ad1 img-responsive" src='/media/img-ad1.jpg/'></a>
+							
 						</div>
 
 						
@@ -181,6 +189,19 @@
                             <hr>
 						</div>
 					</div>
+					 {% autoescape off %}
+							<div class="poll-content">
+								{{poll.description}}
+							</div>
+							{%  endautoescape %}
+							<div class="social-icons">
+								<h4><strong>SHARE</strong></h4>
+								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-twitter-square twitter fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
+
+							</div>
+
 					<div class="comment ">
 						<div id="disqus_thread"></div>
 						<script>

@@ -12,7 +12,7 @@ class Category(models.Model):
 		return self.name
 
 class Question(models.Model):
-	question_text=models.CharField(max_length=50, unique=True)
+	question_text=models.CharField(max_length=200, unique=True)
 	pub_date=models.DateTimeField(auto_now=True)
 	thumbnail=models.ImageField(upload_to='polls/%Y/%m/%d')
 	status=models.CharField(max_length=50, choices=(('Active', 'Active'), ('Completed', 'Completed')))
@@ -27,6 +27,9 @@ class Question(models.Model):
 		    self.slug = slugify(self.question_text)
 
 		return super(Question, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return self.question_text
 
 class Profile(models.Model):
 	user=models.OneToOneField(User)
@@ -81,6 +84,8 @@ class Choice(models.Model):
 		else:
 			return False
 
+	def __str__(self):
+		return self.question.question_text 
 
 
 

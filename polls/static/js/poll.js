@@ -110,9 +110,12 @@ $('.js-votebtn').click(function(){
           }
           else{
             console.log(data)
-
+             
             if (data.cant_vote){
             alert( "The user is not qualified to vote" );
+          }
+          else{
+            alert( "The server is experiencing some problem, Please try again later" );
           }
 
 
