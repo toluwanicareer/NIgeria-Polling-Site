@@ -7,6 +7,7 @@ from django.http import JsonResponse, Http404
 from django.contrib.auth import (authenticate,login as auth_login, logout as auth_logout)
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.db.models import Q
 import pdb
 # Create your views here.
 
@@ -15,24 +16,27 @@ class PollDetailView(DetailView):
 	 model = Question
 	 context_object_name='poll'
 	 template_name='polls/detail.html'
+	 
 
 
 	 def get_context_data(self, **kwargs):
 	 	context=super(PollDetailView,self).get_context_data(**kwargs)
 	 	context['popular_polls']=Question.objects.filter(status='Active')[:4]
 	 	return context
-
+	
 
 class HomeView(ListView):
 	model=Question
 	context_object_name='polls'
 	template_name='polls/index.html'
-	queryset=Question.objects.filter(status='Active')
+	queryset=Question.objects.filter(Q(category__name__icontains='polit'),status='Active')
 
 
 	def get_context_data(self, **kwargs):
 		context=super(HomeView, self).get_context_data(**kwargs)
 		context['dead_polls']=Question.objects.filter(status='completed')
+		context['sport_polls']=Question.objects.filter(Q(category__name__icontains='spor'),status='Active')
+		context['service_polls']=Question.objects.filter(Q(category__name__icontains='service'),status='Active')
 		return context 
 
 
@@ -102,6 +106,8 @@ class  updateFriendCount(View):
 		profile=Profile.objects.get(user=self.request.user)
 		data['response']=profile.saveFriend(no)
 		return JsonResponse(data)
+
+
 
 
 

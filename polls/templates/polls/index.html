@@ -72,6 +72,64 @@
 			{% endfor %}
 			
 		</div>
+		<div class="row">
+		<div class="page-header text-center">
+			<h3><font color="green"> Sport</font></h3>
+		</div>
+	        {% for poll in sport_polls %}
+			<div class="col-md-4 col-sm-6">
+				<div class="pollcard">
+					<img class="img-responsive" src="{{ poll.thumbnail.url }}"/>
+					<div class="pol-text">
+						<h4>{{ poll.question_text }}</h4>
+						<div class="row">
+							
+							<div class="col-xs-12">
+								<a href="{% url 'poll_app:detail' poll.slug %}" class=" btn btn-primary pollbtn" >Vote Now</a>
+							</div>
+							<div class="social-icons">
+								<h4><strong>SHARE</strong></h4>
+								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-twitter-square twitter fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			
+		</div>
+		<div class="row">
+		<div class="page-header text-center">
+			<h3><font color="green" >Service</font></h3>
+		</div>
+	        {% for poll in service_polls %}
+			<div class="col-md-4 col-sm-6">
+				<div class="pollcard">
+					<img class="img-responsive" src="{{ poll.thumbnail.url }}"/>
+					<div class="pol-text">
+						<h4>{{ poll.question_text }}</h4>
+						<div class="row">
+							
+							<div class="col-xs-12">
+								<a href="{% url 'poll_app:detail' poll.slug %}" class=" btn btn-primary pollbtn" >Vote Now</a>
+							</div>
+							<div class="social-icons">
+								<h4><strong>SHARE</strong></h4>
+								<i class="fa fa-facebook-square facebook fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-twitter-square twitter fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-instagram fa-2x instagram" aria-hidden="true"></i>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			
+		</div>
 	</div>
 
 	

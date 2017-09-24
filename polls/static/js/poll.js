@@ -74,6 +74,11 @@ function resolveLocation(lat, long){
 
 
 function showError(error) {
+    localStorage.state='anoynymous';
+    sessionStorage.location_done=true;
+    if (sessionStorage.facebook_done == true && sessionStorage.location_done == true){
+          $('.js-votebtn').css('display','inline')
+        }
     switch(error.code) {
         case error.PERMISSION_DENIED:
            console.log ( "User denied the request for Geolocation.")
