@@ -1,0 +1,230 @@
+.blueheader{
+	min-height:450px;
+	padding-top:20px;
+	background-image:url(http://cdn.jevelin.shufflehound.com/wp-content/uploads/sites/11/2016/11/Title_2.jpg);
+}	
+
+.navbar-nav>li>a  {
+	font-family: 'Oswald', sans-serif;
+
+}
+
+.navbar-header a{
+	font-family: 'Oswald', sans-serif;
+}
+
+.blueheader a{
+	color:rgba(255,255,255,0.85) !important;
+
+}
+
+.blueheader a:hover{
+	color:#fff !important;
+	background-color: transparent!important;
+}
+
+.bars{
+	    background-color: #fff!important;
+}
+
+
+.bluetext h2{
+    font-size:48px;
+    margin-top: 150px;
+    color:white;
+}
+
+.bluetext span{
+	color:green;
+	font-size:20px;
+}
+.pollcard{
+ box-shadow: 0 6px 2px rgba(0,0,0,.05);
+ margin-bottom: 20px;
+ padding: 10px;
+}
+
+.pollcard img{
+	height:200px;
+	width:100%;
+}
+.pol-text h4{
+	font-size: 15px;
+}
+.social-icons{
+	padding-left: 10px;
+}
+
+.social-icons h4{
+	display: inline;
+}
+
+.social-icons i{
+	padding-left: 5px;
+}
+
+.pollbtn{
+	background-color:green;
+	border-style: none;
+	border-radius: 0px;
+	width:80%;
+	margin-bottom:10px;
+	
+}
+.pollbtn--dis{
+	display: none;
+}
+.modal-header{
+	background-color:#5394ff;
+}
+
+.icons{
+	color:green;
+}
+
+.facebook{
+	color:#3b5998;
+}
+
+.twitter{
+	color:#326ada;
+}
+.instagram{
+	color:;
+}
+
+.times{
+	color:#fff;
+	z-index:500;
+}
+
+.modal-title{
+	color:#fff;
+}
+
+.closemodal{
+	border: 2px solid #5394ff;
+    color: #5394ff!important;
+    background-color: transparent;
+}
+
+.facebook-login {
+    background-color: #3b5998;
+    color: #fff;
+    padding: 10px 0px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color:rgba(255,255,255,0.85)!important;
+}
+
+a.facebook-login:hover{
+	color:#fff !important;
+	text-decoration: none!important;
+}
+.prompt{
+	font-size:15px;
+	color:green;
+}
+
+.voteinput{
+	border-radius: 0px;
+	min-height: 35px
+}
+
+.btnvote{
+	min-width: 100px;
+}
+body{
+font-family: 'Lato', sans-serif;
+}
+
+.blueheader--nobackground{
+	background-image: none;
+	background-color: #fff;
+	color:#ccc;
+	height:auto;
+	min-height: auto;
+    position: relative;
+    z-index: 1000;
+    border-bottom: 1px solid rgba( 0,0,0,0.08 );
+    padding-bottom: 10px;
+
+}
+.navbar-default{
+	background-color: transparent;
+	border-color: transparent;
+}
+.blueheader--nobackground a {
+    color: #000 !important;
+}
+.detail-text{
+font-size: 26px;
+line-height: 1.1em;
+margin:50px 0px 10px 0px;
+
+}
+
+.detail-text--result{
+	font-size:20px;
+	color:#000;
+}
+.detail-text--result a:hover{
+	 text-decoration: none;
+}
+.detail-text--popular{
+	font-family: 'Oswald', sans-serif;
+
+}
+
+.detail-text--popular-tag{
+	    color: #8d8d8d;
+}
+.margin-tops{
+	margin-top: 15px;
+}
+
+.detail-img{
+	max-height: 500px;
+}
+
+.poll-content >p{
+    font-size: 19px;
+}
+
+body{
+	font-size:17px;
+}
+@media screen 
+  and (min-width: 768px) 
+  and (max-width: 992px){	
+  	.detail-text--result{
+	font-size:15px;
+	}
+	.detail-text{
+	font-size:18px;
+	}
+	.detail-popular-img{
+		width:100%;
+
+	}
+	.detail-text--popular-tag{
+	    padding-bottom: 5px;
+	}
+	    .detail-text--popular{
+			margin-top: 3px;
+			margin-bottom: 3px;
+		}
+
+
+}
+
+@media screen 
+  and (max-width: 767px){
+  	.detail-text--result{
+	font-size:15px;
+	}
+	.detail-text{
+	font-size:15px;
+	}
+}
