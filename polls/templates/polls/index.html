@@ -14,29 +14,7 @@
 	</head>
 	<body>
 	<div class="jumbotron blueheader">
-		<nav class="navbar  navbar-default">
-		  <div class="container">
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-		        <span class="icon-bar bars" ></span>
-		        <span class="icon-bar bars"></span>
-		        <span class="icon-bar bars"></span> 
-		      </button>
-		      <a class="navbar-brand" href="#">WebSiteName</a>
-		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
-		        <li class="active"><a href="#">Home</a></li>
-		        <li><a href="#">About</a></li>
-		        <li><a href="#">Contact</a></li> 
-		        <li><a href="#">Create Poll</a></li> 
-			    <li><a href="#">Services</a>  
-		        <li><a href="#"><span class="glyphicon glyphicon-user icons" ></span> Sign Up</a></li>
-		        <li><a href="#"><span class="glyphicon glyphicon-log-in icons"></span> Login</a></li>
-		      </ul>
-		    </div>
-		  </div>
-		</nav>
+		{% include 'polls/includes/header.html' %}
 		<div class="bluetext text-center">
 			<h2><strong>Your Opinions Count</strong></h2>
 			<span><strong>Literally</strong></span>
