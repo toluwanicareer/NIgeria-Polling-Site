@@ -13,7 +13,7 @@
 			      <ul class="nav navbar-nav navbar-right">
 			        <li class="active"><a href="{% url 'poll_app:home'%}">Home</a></li>
 			        <li><a href="#">About</a></li>
-			        <li><a href="#">Contact</a></li> 
+			        <li><a href="{% url 'poll_app:contact' %}">Contact</a></li> 
 			        <!--li><a href="#">Create Poll</a></li--> 
 			        {% if not user.is_authenticated %}
 			        <li><a href="#"><span class="glyphicon glyphicon-log-in icons"></span> Login</a></li>

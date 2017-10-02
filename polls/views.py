@@ -2,13 +2,17 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
 from django.views import View
-from .models import Question, Choice, Profile
+from .models import Question, Choice, Profile, ContactMessage
 from django.http import JsonResponse, Http404
 from django.contrib.auth import (authenticate,login as auth_login, logout as auth_logout)
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.db.models import Q
+from django.urls import reverse
+from .forms import ContactForm 
+from django.http import HttpResponseRedirect
 import pdb
+from django.contrib import messages
 # Create your views here.
 
 
@@ -23,6 +27,12 @@ class PollDetailView(DetailView):
 	 	context=super(PollDetailView,self).get_context_data(**kwargs)
 	 	context['popular_polls']=Question.objects.filter(status='Active')[:4]
 	 	return context
+
+	
+
+
+		
+
 	
 
 class HomeView(ListView):
@@ -110,7 +120,21 @@ class  updateFriendCount(View):
 
 
 
+class ContactView(CreateView):
+	model=ContactMessage
+	template_name='polls/contact.html'
+	form_class=ContactForm
 
+	def form_valid(self,form):
+		messages.success(self.request, 'Message sent sucessfully. We will get back to you in 24 hrs')
+		return super(ContactView,self).form_valid(form)
+
+	def form_invalid(self,form):
+		messages.warning(self.request, 'Message not sent, Check your email') 	
+		return super(ContactView,self).form_invalid(form)
+		
+	def get_success_url(self):
+		return reverse('poll_app:contact')
 
 
 

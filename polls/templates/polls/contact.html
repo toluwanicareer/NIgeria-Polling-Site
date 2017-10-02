@@ -1,0 +1,57 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact | Nigerian-Poll</title>
+    
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+     <link href= "{% static 'contact.css' %}" rel="stylesheet">
+     <link href= "{% static 'poll.css' %}" rel="stylesheet">
+    
+
+  </head>  
+  <body>
+    <div class="jumbotron blueheader blueheader--nobackground">
+        {% include 'polls/includes/header.html' %}
+    </div>
+    <div class="container">  
+      <form id="contact" action="{% url 'poll_app:contact' %}" method="post">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>{{message}}</strong>
+        </div>
+        {%endfor%}
+        {% endif %}
+
+        {% csrf_token %}
+        <h3>Naija Poll Contact Form</h3>
+        <h4>Contact us for any question you might have</h4>
+        <fieldset>
+          <input name='name' id='id_name' placeholder="Your name" type="text" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Your Email Address" name='email' id='id_email' type="email" tabindex="2" required>
+        </fieldset>
+        
+        <fieldset>
+          <textarea placeholder="Type your message here...." name='message' id='id_message' tabindex="5" required></textarea>
+        </fieldset>
+        <fieldset>
+          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+        <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a></p>
+      </form>
+    </div>
+  </body>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC8TvKHQ-rUklU5OsD6Oq73pMG1fJO9iR8" ></script>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+  <script  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>

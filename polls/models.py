@@ -11,6 +11,13 @@ class Category(models.Model):
 	def __str__(self):
 		return self.name
 
+class ContactMessage(models.Model):
+	email=models.EmailField()
+	message=models.TextField()
+	name=models.CharField(max_length=100)
+	created_date=models.DateTimeField(auto_now_add=True)
+
+
 class Question(models.Model):
 	question_text=models.CharField(max_length=200, unique=True)
 	pub_date=models.DateTimeField(auto_now=True)
